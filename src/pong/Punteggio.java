@@ -111,22 +111,13 @@ public class Punteggio {
      */
     public void annullaUltimoPunto() {
         if(storia.size() >= 1){
-            if(isFinita()){
-                vincitore = null;
-                if(storia.get(storia.size()-1) == Lato.SINISTRA){
-                    puntiSinistra -- ; 
-                }else{
-                    puntiDestra -- ; 
-                }
-                storia.remove(storia.size() - 1);
+            vincitore = null;
+            if(storia.get(storia.size()-1) == Lato.SINISTRA){
+                puntiSinistra -- ; 
             }else{
-                if(storia.get(storia.size()-1) == Lato.SINISTRA){
-                    puntiSinistra -- ; 
-                }else{
-                    puntiDestra -- ; 
-                }
-                storia.remove(storia.size() - 1);
+                puntiDestra -- ; 
             }
+            storia.remove(storia.size() - 1);
         }
     }
 
