@@ -20,6 +20,14 @@ import java.util.List;
 public class Punteggio {
 
     // scrivete qui i campi che vi servono
+    private int puntiPerVincere; 
+    private int scartoMinimo;
+    private int puntiDestra; 
+    private int puntiSinistra;
+    private List<Lato> storia = new ArrayList<>();
+    private Lato vincitore = null;
+    
+    
 
     /**
      * Una partita nuova, 0 a 0, con la sua regola per vincere.
@@ -27,7 +35,9 @@ public class Punteggio {
      * Promette: una partita 0 a 0, non finita, senza vincitore e con la storia vuota.
      */
     public Punteggio(int puntiPerVincere, int scartoMinimo) {
-        // scrivete qui
+        if(puntiPerVincere >= 1 && scartoMinimo >= 1){
+
+        }
     }
 
     /**
@@ -39,7 +49,18 @@ public class Punteggio {
      *           Se la partita era già finita, non cambia niente.
      */
     public void segnaPunto(Lato chi) {
-        // scrivete qui
+        if (chi != null && !isFinita()) {
+            if(chi == Lato.SINISTRA){
+                puntiSinistra ++ ;
+                storia.add(chi);
+            }else{
+                puntiDestra ++;
+                storia.add(chi);  
+            }
+            if((puntiDestra >= puntiPerVincere && (puntiDestra - puntiSinistra) >= scartoMinimo) || (puntiSinistra >= puntiPerVincere && (puntiSinistra - puntiDestra) >= scartoMinimo )){
+                    vincitore = chi; 
+                }
+        }
     }
 
     /**
