@@ -36,7 +36,11 @@ public class Punteggio {
      */
     public Punteggio(int puntiPerVincere, int scartoMinimo) {
         if(puntiPerVincere >= 1 && scartoMinimo >= 1){
-
+            this.puntiPerVincere = puntiPerVincere;
+            this.scartoMinimo = scartoMinimo; 
+            puntiDestra = 0;
+            puntiSinistra = 0; 
+            vincitore = null; 
         }
     }
 
@@ -68,21 +72,33 @@ public class Punteggio {
      * Promette: i punti del lato chi. Non cambia niente.
      */
     public int getPunti(Lato chi) {
-        return 0; // scrivete qui
+            if(chi == Lato.SINISTRA){
+                return puntiSinistra;
+            }else{
+                return puntiDestra; 
+            }
     }
 
     /**
      * Promette: vero se la partita è finita, cioè se un lato ha vinto. Non cambia niente.
      */
     public boolean isFinita() {
-        return false; // scrivete qui
+        if( vincitore == null){
+            return false; 
+        }else{
+            return true; 
+        }
     }
 
     /**
      * Promette: il lato che ha vinto; null se la partita non è finita. Non cambia niente.
      */
     public Lato getVincitore() {
-        return null; // scrivete qui
+        if(isFinita() && vincitore != null){
+            return vincitore; 
+        }else{
+            return null; 
+        }
     }
 
     /**
@@ -94,7 +110,24 @@ public class Punteggio {
      *           niente.
      */
     public void annullaUltimoPunto() {
-        // scrivete qui
+        if(storia.size() >= 1){
+            if(isFinita()){
+                vincitore = null;
+                if(storia.get(storia.size()-1) == Lato.SINISTRA){
+                    puntiSinistra -- ; 
+                }else{
+                    puntiDestra -- ; 
+                }
+                storia.remove(storia.size() - 1);
+            }else{
+                if(storia.get(storia.size()-1) == Lato.SINISTRA){
+                    puntiSinistra -- ; 
+                }else{
+                    puntiDestra -- ; 
+                }
+                storia.remove(storia.size() - 1);
+            }
+        }
     }
 
     /**
@@ -108,7 +141,7 @@ public class Punteggio {
      *           segnati dopo; chi la usa non deve contare né sull'una né sull'altra cosa.
      */
     public List<Lato> getStoria() {
-        return new ArrayList<>(); // scrivete qui
+        return List.copyOf(storia); 
     }
 
     /**
@@ -117,6 +150,10 @@ public class Punteggio {
      * Promette: 0 a 0, non finita, senza vincitore, storia vuota; la regola per vincere non cambia.
      */
     public void azzera() {
-        // scrivete qui
+        puntiDestra = 0;
+        puntiSinistra = 0; 
+        vincitore = null;
+        storia = new ArrayList<>();
+    
     }
 }
